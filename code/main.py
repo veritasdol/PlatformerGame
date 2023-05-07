@@ -13,7 +13,7 @@ class Main:
     def run(self):
         while True:
             dt = self.clock.tick() / 1000
-                    
+            
             self.editor.run(dt)
             pygame.display.update()
 

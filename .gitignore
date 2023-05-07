@@ -1,2 +1,2 @@
-/.GITIGNORE
 /.vscode
+code/__pycache__
