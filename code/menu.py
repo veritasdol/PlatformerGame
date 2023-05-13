@@ -13,9 +13,9 @@ class Menu:
         for key, value in EDITOR_DATA.items():
             if value['menu']:
                 if not value['menu'] in self.menu_surfs:
-                    self.menu_surfs[value['menu']] = [(key, load(value['menu_surf'][1:]))]
+                    self.menu_surfs[value['menu']] = [(key, load(value['menu_surf']))]
                 else:
-                    self.menu_surfs[value['menu']].append((key, load(value['menu_surf'][1:])))
+                    self.menu_surfs[value['menu']].append((key, load(value['menu_surf'])))
 
     def create_buttons(self):
         
