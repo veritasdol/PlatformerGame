@@ -108,6 +108,7 @@ class Editor:
 			self.selection_hotkeys(event)
 			self.menu_click(event)
 			self.canvas_add()
+			self.canvas_remove()
 	
 	def menu_click(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN and self.menu.rect.collidepoint(mouse_pos()):
@@ -126,6 +127,18 @@ class Editor:
 
 				self.check_neighbors(current_cell)
 				self.last_selected_cell = current_cell
+
+	def canvas_remove(self):
+		if mouse_buttons()[2] and not self.menu.rect.collidepoint(mouse_pos()):
+
+			if self.canvas_data:
+				current_cell = self.get_current_cell()
+				if current_cell in self.canvas_data:
+					self.canvas_data[current_cell].remove_id(self.selection_index)
+
+					if self.canvas_data[current_cell].is_empty:
+						del self.canvas_data[current_cell]
+					self.check_neighbors(current_cell)
 
 	def pan_input(self, event):
 		# middle mouse button pressed / released
@@ -251,6 +264,7 @@ class CanvasTile:
 		self.objects = []
 
 		self.add_id(tile_id)
+		self.is_empty = False
 
 	def add_id(self, tile_id):
 		options = {key: value['style'] for key, value in EDITOR_DATA.items()}
@@ -259,4 +273,19 @@ class CanvasTile:
 			case 'water': self.has_water = True
 			case 'coin': self.coin = tile_id
 			case 'enemy': self.enemy = tile_id
+
+	def remove_id(self, tile_id):
+		options = {key: value['style'] for key, value in EDITOR_DATA.items()}
+		match options[tile_id]:
+			case 'terrain': self.has_terrain = False
+			case 'water': self.has_water = False
+			case 'coin': self.coin = None
+			case 'enemy': self.enemy = None
+
+		self.check_content()
+	
+	def check_content(self):
+		if not self.has_terrain and not self.has_water and not self.coin and not self.enemy:
+			self.is_empty = True
+
 
