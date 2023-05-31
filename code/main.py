@@ -25,6 +25,13 @@ class Main:
 
     def imports(self):
         self.land_tiles = import_folder_dict('../graphics/terrain/land')
+        self.water_bottom = load('../graphics/terrain/water/water_bottom.png').convert_alpha()
+        self.water_top_animations = import_folder('../graphics/terrain/water/animation')
+
+        self.gold = import_folder('../graphics/items/gold')
+        self.silver = import_folder('../graphics/items/silver')
+        self.diamond  = import_folder('../graphics/items/diamond')
+        self.particle = import_folder('../graphics/items/particle')
         # print(self.land_tiles)
 
     def toggle(self):
@@ -34,8 +41,13 @@ class Main:
         self.transition.active = True
         if grid:
             self.level = Level(grid, self.switch, {
-                'land': self.land_tiles
-            })
+                'land': self.land_tiles,
+                'water_bottom': self.water_bottom,
+                'water_top': self.water_top_animations,
+                'gold': self.gold,
+                'silver': self.silver,
+                'diamond': self.diamond,
+                'particle': self.particle})
 
     def run(self):
         while True:
