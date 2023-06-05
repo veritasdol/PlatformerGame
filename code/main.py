@@ -42,7 +42,7 @@ class Main:
         self.spikes = load('../graphics/enemies/spikes/spikes.png').convert_alpha()
         self.tooth = {folder:import_folder(f'../graphics/enemies/tooth/{folder}') for folder in list(walk('../graphics/enemies/tooth'))[0][1]}
         self.shell = {folder:import_folder(f'../graphics/enemies/shell_left/{folder}') for folder in list(walk('../graphics/enemies/shell_left'))[0][1]}
-        print(self.tooth)
+        # print(self.tooth)
 
     def toggle(self):
         self.editor_active = not self.editor_active
